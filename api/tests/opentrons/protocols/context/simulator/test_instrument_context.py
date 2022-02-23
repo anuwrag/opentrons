@@ -85,3 +85,13 @@ def test_aspirate_too_much(
         AssertionError, match="Cannot aspirate more than pipette max volume"
     ):
         subject.aspirate(subject.get_max_volume() + 1, rate=1)
+
+
+def test_working_volume(subject: AbstractInstrument, labware: AbstractLabware) -> None:
+    """It should have the correct working volume."""
+    subject.home()
+    assert subject.get_pipette()["working_volume"] == 300
+    subject.pick_up_tip(
+        well=labware.get_wells()[0], tip_length=1, presses=None, increment=None
+    )
+    assert subject.get_pipette()["working_volume"] == 100
