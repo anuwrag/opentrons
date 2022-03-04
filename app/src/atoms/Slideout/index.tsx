@@ -34,6 +34,7 @@ const EXPANDED_STYLE = css`
   animation-name: slidein;
   overflow: hidden;
   width: 19.5rem;
+  height: 100%;
 
   @keyframes slidein {
     from {
@@ -72,7 +73,6 @@ export const Slideout = (props: Props): JSX.Element | null => {
         top="0"
         backgroundColor={COLORS.white}
         boxShadow={'0px 3px 6px rgba(0, 0, 0, 0.23)'}
-        borderRadius={SPACING_1}
       >
         <Flex padding={SPACING_3} flexDirection={DIRECTION_COLUMN}>
           <Flex
