@@ -1,0 +1,83 @@
+test_name: setRailLights command.
+
+marks:
+  - usefixtures:
+      - run_server
+stages:
+  - name: Create Empty Run
+    request:
+      url: '{host:s}:{port:d}/runs'
+      json:
+        data: {}
+      method: POST
+    response:
+      status_code: 201
+      json:
+        data:
+          id: !anystr
+          createdAt: !re_search "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+\\+\\d{2}:\\d{2}$"
+          status: idle
+          current: true
+          actions: []
+          errors: []
+          pipettes: []
+          labware:
+            - id: fixedTrash
+              loadName: opentrons_1_trash_1100ml_fixed
+              definitionUri: opentrons/opentrons_1_trash_1100ml_fixed/1
+              location:
+                slotName: '12'
+          labwareOffsets: []
+      save:
+        json:
+          run_id: data.id
+  - name: Get Run
+    request:
+      url: '{host:s}:{port:d}/runs/{run_id}'
+      method: GET
+    response:
+      status_code: 200
+  - name: Create setRailLights Command
+    request:
+      url: '{host:s}:{port:d}/runs/{run_id}/commands'
+      json:
+        data:
+          commandType: setRailLights
+          params:
+            'on': True
+      method: POST
+    response:
+      status_code: 201
+      json:
+        data:
+          status: queued
+          params:
+            'on': True
+  - name: Create loadModule Magnetic Module Command
+    request:
+      url: '{host:s}:{port:d}/runs/{run_id}/commands'
+      method: POST
+      json:
+        data:
+          commandType: loadModule
+          params:
+            model: magneticModuleV1
+            location:
+              slotName: "3"
+    response:
+      status_code: 201
+      save:
+        json:
+          mag_module_id: data.id
+  - name: Engage Magnetic Module
+    request:
+      url: '{host:s}:{port:d}/runs/{run_id}/commands'
+      method: POST
+      json:
+        data:
+          commandType: magneticModule/engageMagnet
+          params:
+            moduleId: '{mag_module_id}'
+            engageHeight: 1
+    response:
+      status_code: 201
