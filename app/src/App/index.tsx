@@ -21,6 +21,7 @@ import { Robots } from '../pages/Robots'
 import { Upload } from '../pages/Upload'
 import { Run } from '../pages/Run'
 import { More } from '../pages/More'
+import { Liquids } from '../pages/Liquids'
 
 import { ConnectPanel } from '../pages/Robots/ConnectPanel'
 import { RunPanel } from '../pages/Run/RunPanel'
@@ -58,7 +59,9 @@ export const AppComponent = (): JSX.Element => {
               <Route path="/robots/:name?" component={ConnectPanel} />
               <Route path="/more" component={MorePanel} />
               <Route path="/run" component={RunPanel} />
+              <Route path="/liquid"  component={MorePanel}/>
             </Switch>
+
             <TopPortalRoot />
             <Box position={POSITION_RELATIVE} width="100%" height="100%">
               <ModalPortalRoot />
@@ -75,6 +78,9 @@ export const AppComponent = (): JSX.Element => {
                 <Route path="/run">
                   <Run />
                 </Route>
+                <Route path="/liquids">
+                  <Liquids />
+                </Route>                
                 <Redirect exact from="/" to="/robots" />
                 {/* redirect after next gen app feature flag toggle */}
                 <Redirect exact from="/app-settings/feature-flags" to="/more" />
