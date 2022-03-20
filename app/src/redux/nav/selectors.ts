@@ -21,6 +21,7 @@ const ROBOT = 'Robot'
 const PROTOCOL = 'Protocol'
 const CALIBRATE = 'Calibrate'
 const RUN = 'Run'
+const LIQUIDCLASS = 'Liquid Class'
 export const MORE = 'More'
 
 const PLEASE_CONNECT_TO_A_ROBOT = 'Please connect to a robot to proceed'
@@ -193,6 +194,19 @@ export const getRunLocation: (state: State) => NavLocation = createSelector(
   }
 )
 
+export const getLiquidClassLocation: (state: State) => NavLocation = createSelector(
+  getRunDisabledReason,
+  disabledReason => {
+    return {
+      id: 'liquidclass',
+      path: '/liquidclass',
+      title: LIQUIDCLASS,
+      iconName: 'water',
+      
+    }
+  }
+)
+
 export const getMoreLocation: (state: State) => NavLocation = createSelector(
   getAvailableShellUpdate,
   getU2EWindowsDriverStatus,
@@ -214,13 +228,15 @@ export const getMoreLocation: (state: State) => NavLocation = createSelector(
   }
 )
 
+
 export const getNavbarLocations: (
   state: State
 ) => NavLocation[] = createSelector(
   getRobotsLocation,
   getUploadLocation,
+  getLiquidClassLocation,
   getMoreLocation,
-  (robots, upload, more) => {
-    return [robots, upload, more]
+  (robots, upload, liquidclass, more) => {
+    return [robots, upload, liquidclass, more]
   }
 )

@@ -14,6 +14,7 @@ import { translationKeyByPathSegment } from './NextGenApp'
 
 import type { PathCrumb } from '../molecules/Breadcrumbs'
 import type { NavLocation } from '../redux/nav/types'
+import { LiquidClass } from '../pages/LiquidClass'
 
 export function useRunLocation(): NavLocation {
   const { t } = useTranslation('top_navigation')
@@ -41,11 +42,11 @@ export function useRunLocation(): NavLocation {
 }
 
 export function useNavLocations(): NavLocation[] {
-  const [robots, upload, more] = useSelector(getNavbarLocations)
+  const [robots, upload, LiquidClass, more] = useSelector(getNavbarLocations)
 
   const runLocation = useRunLocation()
 
-  const navLocations = [robots, upload, runLocation, more]
+  const navLocations = [robots, upload, runLocation, LiquidClass, more]
 
   return navLocations
 }

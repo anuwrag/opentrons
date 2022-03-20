@@ -20,11 +20,13 @@ import { Alerts } from '../organisms/Alerts'
 import { Robots } from '../pages/Robots'
 import { Upload } from '../pages/Upload'
 import { Run } from '../pages/Run'
+import { LiquidClass } from '../pages/LiquidClass'
 import { More } from '../pages/More'
 
 import { ConnectPanel } from '../pages/Robots/ConnectPanel'
 import { RunPanel } from '../pages/Run/RunPanel'
 import { MorePanel } from '../pages/More/MorePanel'
+import { LiquidClassPanel } from '../pages/LiquidClass/LiquidClassPanel'
 
 import { Navbar } from './Navbar'
 import { NextGenApp } from './NextGenApp'
@@ -58,6 +60,7 @@ export const AppComponent = (): JSX.Element => {
               <Route path="/robots/:name?" component={ConnectPanel} />
               <Route path="/more" component={MorePanel} />
               <Route path="/run" component={RunPanel} />
+              <Route path="/liquidclass" component={LiquidClassPanel} />
             </Switch>
             <TopPortalRoot />
             <Box position={POSITION_RELATIVE} width="100%" height="100%">
@@ -75,6 +78,9 @@ export const AppComponent = (): JSX.Element => {
                 <Route path="/run">
                   <Run />
                 </Route>
+                <Route path="/liquidclass">
+                  <LiquidClass />
+                </Route>                
                 <Redirect exact from="/" to="/robots" />
                 {/* redirect after next gen app feature flag toggle */}
                 <Redirect exact from="/app-settings/feature-flags" to="/more" />
