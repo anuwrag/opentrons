@@ -2,6 +2,7 @@
 import * as React from 'react'
 import { useRouteMatch, Switch, Route, Redirect } from 'react-router-dom'
 
+import { createLiquidClassName } from './BuildOnRobot/createName'
 import { BuildOnRobot } from './BuildOnRobot'
 
 export function LiquidClass(): JSX.Element {
@@ -11,7 +12,8 @@ export function LiquidClass(): JSX.Element {
   return (
     <Switch>
       <Redirect exact from={path} to={appPath} />
-      <Route path={`${path}/build-on-robot`} component={BuildOnRobot} />
+      <Route path={`${path}/`} component={createLiquidClassName} />
+      <Route path={`${path}/`} component={BuildOnRobot} />
     </Switch>
   )
 }

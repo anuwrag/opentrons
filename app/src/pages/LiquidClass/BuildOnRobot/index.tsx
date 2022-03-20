@@ -10,7 +10,8 @@ import { createLiquidClassName } from './createName'
 
 export function BuildOnRobot(): JSX.Element {
   return (
-    <Page titleBarProps={{ title: 'Create a new liquid class' }}>
+    <p>Build on robot index file</p>
+/*     <Page titleBarProps={{ title: 'Create a new liquid class' }}>
       <Box margin={SPACING_3}>
         <AppSoftwareSettingsCard />
       </Box>
@@ -20,6 +21,6 @@ export function BuildOnRobot(): JSX.Element {
       <Box margin={SPACING_3}>
         <AppAdvancedSettingsCard />
       </Box>
-    </Page>
+    </Page> */
   )
 }
