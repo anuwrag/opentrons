@@ -7,36 +7,57 @@ import { useSelector, useDispatch } from 'react-redux'
 import type { ViewableRobot } from '../../../redux/discovery/types'
 import {
   home,
+  move,
   ROBOT,
+  getLightsOn,
+  updateLights,
 } from '../../../redux/robot-controls'
 
+import type { Mount, AttachedPipette } from '../../../redux/pipettes/types'
 import type { State, Dispatch } from '../../../redux/types'
 
-export interface InformationCardProps {
-  robot: ViewableRobot
-  updateUrl: string
+interface Props {
+  robotName: string
+  mount: Mount
+  closeModal: () => unknown
 }
-
 
 const TITLE = 'Create a new liquid class'
 const HOME_BUTTON = 'Home'
+const LIGHT_ON_BUTTON = "Lights On"
 
-export function createLiquidClassName(props:InformationCardProps): JSX.Element {
+export function createLiquidClassName(props:Props): JSX.Element {
   const dispatch = useDispatch<Dispatch>()
-  const {robot} = props
-  const testnumber = 10000
-  console.log(testnumber.toString())
-  
+  const {robot,mount} = props
+  const BOTNAME = "OT2CEP20201130B13"
+  const lighton = useSelector((state: State) => getLightsOn(state, BOTNAME))
+
   //const {ip} = robot
   //const namebot:string = robot.ip
   return (
       <p><h1>Create liquid class name menu</h1><br></br>
-      Home the robot: {}
+      Home the robot: 
       
       <SecondaryBtn
-      onClick={() => dispatch(home("OT2CEP20201130B13", ROBOT))}>
+      onClick={() => dispatch(home(BOTNAME, ROBOT))}>
       {HOME_BUTTON}
-      </SecondaryBtn>
+      </SecondaryBtn><br></br><br></br>
+
+      <h3>Print details</h3><br></br>
+      Lights on : 
+
+      <SecondaryBtn
+      onClick={() => dispatch(updateLights(BOTNAME,!lighton))}>
+      {LIGHT_ON_BUTTON}
+      </SecondaryBtn><br></br><br></br>
+
+      Move pipette: 
+
+      <SecondaryBtn
+      onClick={() => dispatch(move(BOTNAME, "attachTip", "left", true))}>
+      {}move
+      </SecondaryBtn><br></br><br></br>
+
       </p>
 
   )
